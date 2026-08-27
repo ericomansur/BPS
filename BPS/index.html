@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Porto Seguro · Roteiro de Viagem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ocean-deep:#0b3f3c;
+    --ocean-mid:#12706a;
+    --ocean-light:#4fa79c;
+    --sand:#f4ecd8;
+    --paper:#fffaf0;
+    --coral:#ff6b4a;
+    --sun:#ffc145;
+    --pink:#e6386f;
+    --ink:#0f2e2b;
+    --ink-soft:#3d5a56;
+    --line: rgba(15,46,43,0.14);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  a{ color:inherit; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    overflow:hidden;
+    background:
+      radial-gradient(120% 90% at 15% 0%, #1a5b56 0%, var(--ocean-deep) 45%, #072826 100%);
+    color:var(--sand);
+    padding:6vh 6vw 4vh;
+  }
+  .sun-disc{
+    position:absolute;
+    right:6%;
+    top:-8%;
+    width:min(60vw, 520px);
+    height:min(60vw, 520px);
+    border-radius:50%;
+    background:radial-gradient(circle at 40% 40%, #ffe9a8, var(--sun) 55%, var(--coral) 100%);
+    filter:blur(0.5px);
+    opacity:0.9;
+    animation:rise 3.2s ease-out;
+  }
+  @keyframes rise{
+    from{ transform:translateY(60px); opacity:0; }
+    to{ transform:translateY(0); opacity:0.9; }
+  }
+  .wave-row{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:38%;
+    overflow:hidden;
+  }
+  .wave-row svg{ position:absolute; bottom:-2px; left:0; width:200%; height:100%; }
+  .wave-back{ animation:drift 22s linear infinite; opacity:0.5; }
+  .wave-front{ animation:drift 14s linear infinite reverse; opacity:0.85; }
+  @keyframes drift{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+
+  .hero-top{ position:relative; z-index:2; display:flex; justify-content:space-between; align-items:flex-start; gap:2rem; flex-wrap:wrap;}
+  .kicker{
+    text-transform:uppercase;
+    letter-spacing:0.22em;
+    font-size:0.72rem;
+    color:var(--sun);
+    font-weight:500;
+  }
+  .hero-title{
+    font-size:clamp(3.2rem, 10vw, 7.5rem);
+    line-height:0.92;
+    color:var(--paper);
+    margin-top:0.6rem;
+  }
+  .hero-title em{ font-style:italic; color:var(--sun); font-weight:500; }
+  .hero-dates{
+    margin-top:1.3rem;
+    font-size:clamp(1rem,2vw,1.25rem);
+    color:var(--sand);
+    opacity:0.9;
+  }
+  .hero-couple{
+    text-align:right;
+    font-size:0.85rem;
+    color:var(--sand);
+    opacity:0.85;
+    max-width:220px;
+  }
+
+  /* boarding pass strip */
+  .pass{
+    position:relative;
+    z-index:2;
+    margin-top:auto;
+    background:rgba(255,250,240,0.08);
+    border:1px solid rgba(255,250,240,0.28);
+    backdrop-filter:blur(6px);
+    border-radius:14px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:0;
+    overflow:hidden;
+  }
+  .pass-seg{
+    flex:1 1 150px;
+    padding:1.1rem 1.4rem;
+    border-right:1px dashed rgba(255,250,240,0.3);
+  }
+  .pass-seg:last-child{ border-right:none; }
+  .pass-label{
+    text-transform:uppercase;
+    font-size:0.62rem;
+    letter-spacing:0.14em;
+    color:var(--sun);
+    margin-bottom:0.35rem;
+  }
+  .pass-value{
+    font-family:'JetBrains Mono', monospace;
+    font-size:1rem;
+    color:var(--paper);
+  }
+  .pass-value small{ display:block; font-size:0.7rem; opacity:0.7; margin-top:2px; }
+
+  .scroll-cue{
+    position:relative; z-index:2;
+    align-self:center;
+    margin-top:1.4rem;
+    font-size:0.7rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--sand);
+    opacity:0.6;
+    display:flex; align-items:center; gap:0.5rem;
+  }
+  .scroll-cue .bar{ width:1px; height:26px; background:var(--sand); opacity:0.5; animation:pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{transform:scaleY(1);} 50%{transform:scaleY(0.4);} }
+
+  /* ---------- INTRO NOTE ---------- */
+  .intro{
+    max-width:760px;
+    margin:0 auto;
+    padding:8vh 6vw 2vh;
+    text-align:center;
+  }
+  .intro h2{
+    font-size:clamp(1.6rem,4vw,2.3rem);
+    color:var(--ocean-deep);
+    line-height:1.25;
+  }
+  .intro p{
+    color:var(--ink-soft);
+    font-size:1.02rem;
+    line-height:1.7;
+    margin-top:1rem;
+  }
+
+  /* ---------- DAYS ---------- */
+  .days{
+    max-width:920px;
+    margin:0 auto;
+    padding:4vh 6vw 10vh;
+    position:relative;
+  }
+  .spine{
+    position:absolute;
+    left:calc(6vw + 27px);
+    top:0; bottom:0;
+    width:2px;
+    background:repeating-linear-gradient(to bottom, var(--line) 0 8px, transparent 8px 16px);
+  }
+  @media (max-width:640px){ .spine{ display:none; } }
+
+  .day{
+    position:relative;
+    display:grid;
+    grid-template-columns:56px 1fr;
+    gap:1.6rem;
+    padding:2.6rem 0;
+    border-bottom:1px solid var(--line);
+    opacity:0;
+    transform:translateY(26px);
+    transition:opacity 0.7s ease, transform 0.7s ease;
+  }
+  .day.in-view{ opacity:1; transform:translateY(0); }
+  .day:last-child{ border-bottom:none; }
+
+  .ribbon-wrap{ position:relative; display:flex; justify-content:center; }
+  .ribbon{
+    position:relative;
+    width:56px;
+    padding:0.6rem 0 0.9rem;
+    text-align:center;
+    color:var(--paper);
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    line-height:1.1;
+    border-radius:4px 4px 10px 10px;
+    box-shadow:0 6px 14px -6px rgba(0,0,0,0.35);
+  }
+  .ribbon::after{
+    content:"";
+    position:absolute;
+    left:50%; bottom:-9px;
+    transform:translateX(-50%);
+    width:0; height:0;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    border-top:10px solid var(--rc);
+  }
+  .ribbon .d{ display:block; font-size:1.05rem; font-weight:500; }
+
+  .day-head{ display:flex; flex-wrap:wrap; align-items:baseline; gap:0.6rem 1rem; }
+  .day-title{ font-size:clamp(1.25rem,2.6vw,1.7rem); color:var(--ocean-deep); }
+  .day-tag{
+    font-size:0.68rem;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:0.2rem 0.7rem;
+  }
+  .day-story{
+    color:var(--ink-soft);
+    font-size:0.98rem;
+    line-height:1.65;
+    margin-top:0.7rem;
+    max-width:60ch;
+  }
+
+  .timeline{
+    margin-top:1.3rem;
+    display:flex;
+    flex-direction:column;
+    gap:0.55rem;
+  }
+  .tl-item{
+    display:grid;
+    grid-template-columns:96px 1fr;
+    gap:0.9rem;
+    font-size:0.92rem;
+    padding:0.35rem 0;
+  }
+  .tl-time{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    color:var(--coral);
+    white-space:nowrap;
+    padding-top:0.1rem;
+  }
+  .tl-text{ color:var(--ink); line-height:1.5; }
+  .tl-text b{ color:var(--ocean-deep); font-weight:600; }
+
+  .cost-chip{
+    margin-top:1.2rem;
+    display:inline-flex;
+    align-items:center;
+    gap:0.5rem;
+    background:var(--sand);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:0.4rem 0.9rem 0.4rem 0.6rem;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    color:var(--ocean-deep);
+  }
+  .cost-chip .coin{
+    width:20px; height:20px; border-radius:50%;
+    background:var(--sun);
+    display:inline-flex; align-items:center; justify-content:center;
+    font-size:0.65rem; color:var(--ink); font-weight:700;
+  }
+
+  /* ---------- BUDGET ---------- */
+  .budget{
+    background:linear-gradient(180deg, var(--ocean-deep), #072826);
+    color:var(--sand);
+    padding:8vh 6vw;
+  }
+  .budget-inner{ max-width:920px; margin:0 auto; }
+  .budget h2{ color:var(--paper); font-size:clamp(1.6rem,4vw,2.2rem); }
+  .budget-sub{ color:var(--ocean-light); margin-top:0.5rem; font-size:0.95rem; }
+  .budget-grid{
+    margin-top:2.2rem;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:1px;
+    background:rgba(255,250,240,0.14);
+    border:1px solid rgba(255,250,240,0.14);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .budget-cell{
+    background:rgba(7,40,38,0.6);
+    padding:1.5rem 1.3rem;
+  }
+  .budget-cell .label{
+    font-size:0.68rem;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--sun);
+  }
+  .budget-cell .value{
+    font-family:'JetBrains Mono', monospace;
+    font-size:1.35rem;
+    margin-top:0.5rem;
+    color:var(--paper);
+  }
+  .budget-cell .value small{ display:block; font-size:0.7rem; color:var(--ocean-light); margin-top:3px; font-family:'Work Sans'; }
+  .budget-note{
+    margin-top:1.6rem;
+    font-size:0.85rem;
+    color:var(--ocean-light);
+    line-height:1.6;
+    max-width:60ch;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding:5vh 6vw 6vh;
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:0.85rem;
+  }
+  footer .display{ color:var(--ocean-deep); font-size:1.2rem; margin-bottom:0.6rem; }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="sun-disc"></div>
+  <div class="wave-row">
+    <svg viewBox="0 0 1440 200" class="wave-back" preserveAspectRatio="none">
+      <path d="M0,100 C240,160 480,40 720,100 C960,160 1200,40 1440,100 L1440,200 L0,200 Z" fill="#0e5852"></path>
+      <path d="M1440,100 C1680,160 1920,40 2160,100 C2400,160 2640,40 2880,100 L2880,200 L1440,200 Z" fill="#0e5852"></path>
+    </svg>
+    <svg viewBox="0 0 1440 200" class="wave-front" preserveAspectRatio="none">
+      <path d="M0,120 C260,60 520,150 780,110 C1040,70 1300,140 1440,110 L1440,200 L0,200 Z" fill="#0b3f3c"></path>
+      <path d="M1440,120 C1700,60 1960,150 2220,110 C2480,70 2740,140 2880,110 L2880,200 L1440,200 Z" fill="#0b3f3c"></path>
+    </svg>
+  </div>
+
+  <div class="hero-top">
+    <div>
+      <div class="kicker">Roteiro de viagem · Bahia, Brasil</div>
+      <h1 class="hero-title">Porto<br><em>Seguro</em></h1>
+      <div class="hero-dates">16 a 21 de dezembro de 2026 · 6 dias na costa do descobrimento</div>
+    </div>
+    <div class="hero-couple">Para dois · Hospedagem no Rede Andrade Terra Brasil · roteiro sem Eco Parque, no ritmo da maré</div>
+  </div>
+
+  <div class="pass">
+    <div class="pass-seg">
+      <div class="pass-label">Ida · 16/12</div>
+      <div class="pass-value">08:25 → 09:45<small>decolagem ao pouso</small></div>
+    </div>
+    <div class="pass-seg">
+      <div class="pass-label">Volta · 21/12</div>
+      <div class="pass-value">13:35 → 17:45<small>decolagem ao pouso</small></div>
+    </div>
+    <div class="pass-seg">
+      <div class="pass-label">Hospedagem</div>
+      <div class="pass-value">5 noites<small>Rede Andrade Terra Brasil</small></div>
+    </div>
+    <div class="pass-seg">
+      <div class="pass-label">Aéreo + hotel</div>
+      <div class="pass-value">R$ 3.600<small>já reservado</small></div>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="bar"></div>desça</div>
+</section>
+
+<div class="intro">
+  <h2>Seis dias entre a maré de Taperapuã e as ladeiras onde o Brasil começou.</h2>
+  <p>Este roteiro segue o ritmo da costa do descobrimento: manhãs de praia e barraca, tardes de história em Coroa Vermelha e Santa Cruz Cabrália, uma travessia de balsa até Arraial d'Ajuda e duas noites de Passarela. Sem pressa de encaixar tudo — o Eco Parque fica de fora desta versão, para sobrar tempo de sentar, comer bem e ver o sol cair sobre o mar.</p>
+</div>
+
+<div class="days">
+  <div class="spine"></div>
+
+  <!-- DAY 1 -->
+  <div class="day" data-ribbon="#ffc145">
+    <div class="ribbon-wrap"><div class="ribbon" style="--rc:#ffc145; background:#ffc145; color:#12302e;">16/12<span class="d">TER</span></div></div>
+    <div>
+      <div class="day-head">
+        <h3 class="day-title">Chegada e primeiro mergulho</h3>
+        <span class="day-tag">Taperapuã · Passarela</span>
+      </div>
+      <p class="day-story">O voo pousa por volta do meio-dia — dá tempo de deixar as malas, almoçar com calma e já sentir a maresia. A tarde é de barraca de praia em Taperapuã, e a noite fecha com a agitação morna da Passarela do Descobrimento.</p>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-time">10:00</div><div class="tl-text">Chegada, transfer ao hotel e <b>almoço</b> de boas-vindas.</div></div>
+        <div class="tl-item"><div class="tl-time">14:30–17:30</div><div class="tl-text"><b>Praia de Taperapuã</b>, na barraca Tôa Tôa ou Axé Moi — cadeira, coco e mar.</div></div>
+        <div class="tl-item"><div class="tl-time">18:00</div><div class="tl-text">Retorno ao hotel para banho e descanso.</div></div>
+        <div class="tl-item"><div class="tl-time">19:30–23:00</div><div class="tl-text"><b>Passarela do Descobrimento</b> — passeio pelas lojinhas, música ao vivo e jantar.</div></div>
+      </div>
+      <div class="cost-chip"><span class="coin">R$</span> 450–550 para o casal</div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day" data-ribbon="#3f9c7a">
+    <div class="ribbon-wrap"><div class="ribbon" style="--rc:#3f9c7a; background:#3f9c7a; color:#fffaf0;">17/12<span class="d">QUA</span></div></div>
+    <div>
+      <div class="day-head">
+        <h3 class="day-title">Coroa Vermelha e Santa Cruz Cabrália</h3>
+        <span class="day-tag">Berço do Brasil</span>
+      </div>
+      <p class="day-story">Dia de sair da bolha da praia para pisar onde a história do país começou. Coroa Vermelha guarda o Marco da Primeira Missa e um mercado de artesanato indígena vivo; Santa Cruz Cabrália completa a tarde com seu casario colonial de frente para o rio.</p>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-time">07:00</div><div class="tl-text">Saída do hotel.</div></div>
+        <div class="tl-item"><div class="tl-time">Manhã</div><div class="tl-text"><b>Coroa Vermelha</b> — praia, Marco da Primeira Missa e barracas de artesanato.</div></div>
+        <div class="tl-item"><div class="tl-time">Tarde</div><div class="tl-text"><b>Santa Cruz Cabrália</b> — centro histórico e vista para o rio João de Tiba.</div></div>
+        <div class="tl-item"><div class="tl-time">Noite</div><div class="tl-text">Retorno a Porto Seguro e jantar.</div></div>
+      </div>
+      <div class="cost-chip"><span class="coin">R$</span> 400–500 para o casal</div>
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day" data-ribbon="#12706a">
+    <div class="ribbon-wrap"><div class="ribbon" style="--rc:#12706a; background:#12706a; color:#fffaf0;">18/12<span class="d">QUI</span></div></div>
+    <div>
+      <div class="day-head">
+        <h3 class="day-title">Travessia para Arraial d'Ajuda</h3>
+        <span class="day-tag">Balsa · Rua do Mucugê</span>
+      </div>
+      <p class="day-story">A balsa cruza o rio Buranhém em poucos minutos e já muda o clima: Arraial pede caminhada tranquila entre praia, mirante e a Rua do Mucugê. Sem Eco Parque, o dia inteiro é dedicado a esse passeio no ritmo de quem quer sentar num bar de esquina e ver o movimento passar.</p>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-time">07:30</div><div class="tl-text">Saída e travessia de <b>balsa</b> Porto Seguro → Arraial d'Ajuda.</div></div>
+        <div class="tl-item"><div class="tl-time">14:00–16:00</div><div class="tl-text">Praias, <b>Igreja de Nossa Senhora d'Ajuda</b>, mirante, Rua do Mucugê e almoço por lá.</div></div>
+        <div class="tl-item"><div class="tl-time">Fim de tarde</div><div class="tl-text">Retorno de balsa a Porto Seguro.</div></div>
+        <div class="tl-item"><div class="tl-time">Noite</div><div class="tl-text">Jantar em Porto Seguro.</div></div>
+      </div>
+      <div class="cost-chip"><span class="coin">R$</span> 400–500 para o casal</div>
+    </div>
+  </div>
+
+  <!-- DAY 4 -->
+  <div class="day" data-ribbon="#ff6b4a">
+    <div class="ribbon-wrap"><div class="ribbon" style="--rc:#ff6b4a; background:#ff6b4a; color:#fffaf0;">19/12<span class="d">SEX</span></div></div>
+    <div>
+      <div class="day-head">
+        <h3 class="day-title">Segunda rodada de praia</h3>
+        <span class="day-tag">Tôa Tôa · Axé Moi</span>
+      </div>
+      <p class="day-story">Dia sem roteiro apertado: volta a Taperapuã pela manhã e, à tarde, a região do Axé Moi para variar de barraca e vista. A noite fica livre — bom momento para repetir a Passarela ou só descansar para o dia seguinte.</p>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-time">08:00</div><div class="tl-text">Saída rumo à praia.</div></div>
+        <div class="tl-item"><div class="tl-time">Manhã</div><div class="tl-text"><b>Taperapuã / Tôa Tôa</b> e almoço na praia.</div></div>
+        <div class="tl-item"><div class="tl-time">Tarde</div><div class="tl-text">Região do <b>Axé Moi</b> e praias vizinhas.</div></div>
+        <div class="tl-item"><div class="tl-time">Noite</div><div class="tl-text">Retorno e noite livre.</div></div>
+      </div>
+      <div class="cost-chip"><span class="coin">R$</span> 500–600 para o casal</div>
+    </div>
+  </div>
+
+  <!-- DAY 5 -->
+  <div class="day" data-ribbon="#e6386f">
+    <div class="ribbon-wrap"><div class="ribbon" style="--rc:#e6386f; background:#e6386f; color:#fffaf0;">20/12<span class="d">SÁB</span></div></div>
+    <div>
+      <div class="day-head">
+        <h3 class="day-title">Cidade Histórica e última noite</h3>
+        <span class="day-tag">Centro Histórico · Farol</span>
+      </div>
+      <p class="day-story">O penúltimo dia sobe a ladeira até o Centro Histórico: igrejas centenárias, o Marco do Descobrimento, o Farol e os mirantes com vista para o mar aberto. À noite, jantar especial para fechar a viagem com chave de ouro.</p>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-time">09:00</div><div class="tl-text">Saída para o <b>Centro Histórico</b>.</div></div>
+        <div class="tl-item"><div class="tl-time">Manhã</div><div class="tl-text">Marco do Descobrimento, igrejas, <b>Farol</b>, mirantes e museu.</div></div>
+        <div class="tl-item"><div class="tl-time">Almoço</div><div class="tl-text">Refeição na cidade alta.</div></div>
+        <div class="tl-item"><div class="tl-time">Tarde</div><div class="tl-text">Livre — tempo de sobra para o que ficou pra trás.</div></div>
+        <div class="tl-item"><div class="tl-time">19:00–22:30</div><div class="tl-text"><b>Última noite</b> e jantar especial.</div></div>
+      </div>
+      <div class="cost-chip"><span class="coin">R$</span> 400–500 para o casal</div>
+    </div>
+  </div>
+
+  <!-- DAY 6 -->
+  <div class="day" data-ribbon="#8a5cc4">
+    <div class="ribbon-wrap"><div class="ribbon" style="--rc:#8a5cc4; background:#8a5cc4; color:#fffaf0;">21/12<span class="d">DOM</span></div></div>
+    <div>
+      <div class="day-head">
+        <h3 class="day-title">Última manhã e volta</h3>
+        <span class="day-tag">Check-out · Voo 13:35</span>
+      </div>
+      <p class="day-story">Manhã curta e sem pressa: café, uma última caminhada, compras de despedida e check-out antes do voo da tarde.</p>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-time">08:00</div><div class="tl-text">Café da manhã no hotel.</div></div>
+        <div class="tl-item"><div class="tl-time">09:00–10:00</div><div class="tl-text">Caminhada e últimas compras.</div></div>
+        <div class="tl-item"><div class="tl-time">10:00</div><div class="tl-text"><b>Check-out.</b></div></div>
+        <div class="tl-item"><div class="tl-time">10:15–10:30</div><div class="tl-text">Saída para o aeroporto.</div></div>
+        <div class="tl-item"><div class="tl-time">13:35</div><div class="tl-text"><b>Voo de volta.</b></div></div>
+      </div>
+      <div class="cost-chip"><span class="coin">R$</span> 100–150 para o casal</div>
+    </div>
+  </div>
+</div>
+
+<section class="budget">
+  <div class="budget-inner">
+    <h2>O que levar em dinheiro</h2>
+    <div class="budget-sub">Roteiro sem Eco Parque — estimativas para o casal, todos os dias</div>
+    <div class="budget-grid">
+      <div class="budget-cell"><div class="label">Gastos na viagem</div><div class="value">R$ 2.250–2.800<small>alimentação, transporte e passeios</small></div></div>
+      <div class="budget-cell"><div class="label">Recomendação prática</div><div class="value">~R$ 2.500<small>para levar em espécie/cartão</small></div></div>
+      <div class="budget-cell"><div class="label">Aéreo + hospedagem</div><div class="value">R$ 3.600<small>já reservado, à parte</small></div></div>
+      <div class="budget-cell"><div class="label">Total aproximado</div><div class="value">R$ 5.850–6.400<small>viagem completa, casal</small></div></div>
+    </div>
+    <p class="budget-note">Os valores de alimentação, transporte e consumo variam conforme a temporada, o aplicativo usado e as escolhas de restaurante e barraca — trate as faixas acima como referência, não como teto fixo.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="display">Boa viagem</div>
+  Porto Seguro · 16–21 de dezembro de 2026
+</footer>
+
+<script>
+  const days = document.querySelectorAll('.day');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  days.forEach(d=>io.observe(d));
+</script>
+
+</body>
+</html>
